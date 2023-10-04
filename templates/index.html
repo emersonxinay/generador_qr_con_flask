@@ -3,24 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Generador de Código QR</title>
+    <title>Generador de Código QR con Imagen</title>
   </head>
 
   <body>
-    <h1>Generador de Código QR</h1>
-    <form action="/" method="post">
-      <label for="data">Datos para el código QR, "recomendable un URL":</label>
+    <h1>Generador de Código QR con Imagen</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+      <label for="data">Datos para el código QR:</label>
       <input type="text" id="data" name="data" required />
+      <br />
+      <label for="image">Imagen (opcional):</label>
+      <input type="file" id="image" name="image" />
+      <br />
       <button type="submit">Generar QR</button>
     </form>
 
-    {% if qr_generated %}
+    {% if qr_image %}
     <h2>Código QR Generado</h2>
-    <p>QR de: {{ data}}</p>
-    <img src="data:image/png;base64,{{ qr_generated }}" alt="Código QR" />
+    <p>QR de: {{data}}</p>
+    <img
+      src="data:image/png;base64,{{ qr_image }}"
+      alt="Código QR con Imagen"
+    />
     <br />
-    <a href="data:image/png;base64,{{ qr_generated }}" download="codigo_qr.png"
-      >Descargar Código QR</a
+    <a
+      href="data:image/png;base64,{{ qr_image }}"
+      download="codigo_qr_con_imagen.png"
+      >Descargar Código QR con Imagen</a
     >
     {% endif %}
   </body>

@@ -1,17 +1,20 @@
-from flask import Flask, render_template, request, send_file
 import io
 import qrcode
+from PIL import Image
 import base64
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    qr_generated = None
-
+    qr_image = None
     if request.method == 'POST':
         data = request.form['data']
+        image = request.files['image']
+
+        # Crear código QR
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -20,19 +23,29 @@ def index():
         )
         qr.add_data(data)
         qr.make(fit=True)
-        qr_img = qr.make_image(fill_color="black", back_color="white")
+        qr_img = qr.make_image(
+            fill_color="black", back_color="white").convert('RGBA')
 
-        # Crear un objeto BytesIO para almacenar la imagen en memoria
-        img_stream = io.BytesIO()
-        qr_img.save(img_stream)
-        img_stream.seek(0)
+        # Insertar la imagen en el centro del código QR
+        if image:
+            img = Image.open(image).convert('RGBA')
+            # Redimensionar la imagen según sea necesario
+            img = img.resize((50, 50))
 
-        # Convertir la imagen a base64
-        img_str = base64.b64encode(img_stream.getvalue()).decode()
+            # Calcular las coordenadas de posición para el centro del código QR
+            qr_width, qr_height = qr_img.size
+            img_width, img_height = img.size
+            x = (qr_width - img_width) // 2
+            y = (qr_height - img_height) // 2
 
-        qr_generated = img_str
+            qr_img.paste(img, (x, y), img)
 
-    return render_template('index.html', qr_generated=qr_generated, data=data)
+        # Convertir el código QR con la imagen a base64
+        buffered = io.BytesIO()
+        qr_img.save(buffered, format="PNG")
+        qr_image = base64.b64encode(buffered.getvalue()).decode()
+
+    return render_template('index.html', qr_image=qr_image, data=data)
 
 
 if __name__ == '__main__':
