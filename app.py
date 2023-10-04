@@ -1,6 +1,7 @@
 import io
 import qrcode
 from PIL import Image
+import datetime
 import base64
 from flask import Flask, render_template, request
 
@@ -9,7 +10,11 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    title = "Generador QR"
     qr_image = None
+    data = None
+    fecha = datetime.datetime.now().year
+
     if request.method == 'POST':
         data = request.form['data']
         image = request.files['image']
@@ -45,7 +50,7 @@ def index():
         qr_img.save(buffered, format="PNG")
         qr_image = base64.b64encode(buffered.getvalue()).decode()
 
-    return render_template('index.html', qr_image=qr_image, data=data)
+    return render_template('index.html', qr_image=qr_image, data=data, title=title, fecha=fecha)
 
 
 if __name__ == '__main__':

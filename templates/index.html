@@ -1,36 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Generador de Código QR con Imagen</title>
-  </head>
-
-  <body>
-    <h1>Generador de Código QR con Imagen</h1>
+{% extends "base.html" %} {% block principal %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <h1 class="text-center mb-4">Generador de Código QR con Imagen</h1>
     <form action="/" method="post" enctype="multipart/form-data">
-      <label for="data">Datos para el código QR:</label>
-      <input type="text" id="data" name="data" required />
-      <br />
-      <label for="image">Imagen (opcional):</label>
-      <input type="file" id="image" name="image" />
-      <br />
-      <button type="submit">Generar QR</button>
+      <div class="mb-3">
+        <label for="data" class="form-label"
+          >Inserta una URL para el código QR:</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="data"
+          name="data"
+          placeholder="Inserta una URL para el código QR"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Imagen (opcional):</label>
+        <input type="file" class="form-control" id="image" name="image" />
+      </div>
+      <button type="submit" class="btn btn-primary">Generar QR</button>
     </form>
 
     {% if qr_image %}
-    <h2>Código QR Generado</h2>
-    <p>QR de: {{data}}</p>
-    <img
-      src="data:image/png;base64,{{ qr_image }}"
-      alt="Código QR con Imagen"
-    />
-    <br />
-    <a
-      href="data:image/png;base64,{{ qr_image }}"
-      download="codigo_qr_con_imagen.png"
-      >Descargar Código QR con Imagen</a
-    >
+    <h2 class="mt-4 text-center">Código QR Generado</h2>
+    <p class="text-center">QR de: {{ data }}</p>
+    <div class="text-center">
+      <img
+        src="data:image/png;base64,{{ qr_image }}"
+        alt="Código QR con Imagen"
+        class="img-fluid mt-3"
+      />
+      <br />
+      <a
+        href="data:image/png;base64,{{ qr_image }}"
+        download="codigo_qr_con_imagen.png"
+        class="btn btn-success mt-3"
+        >Descargar Código QR con Imagen</a
+      >
+    </div>
     {% endif %}
-  </body>
-</html>
+  </div>
+</div>
+{% endblock %}

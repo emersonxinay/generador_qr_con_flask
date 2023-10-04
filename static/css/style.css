@@ -1,0 +1,87 @@
+body.dark {
+  background-color: #343a40; /* Color de fondo para el tema oscuro del body */
+  color: #ffffff; /* Color del texto para el tema oscuro del body */
+}
+
+body.light {
+  background-color: #ffffff; /* Color de fondo para el tema claro del body */
+  color: #000000; /* Color del texto para el tema claro del body */
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #ffffff; /* Color del texto para el tema oscuro de la barra de navegación */
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #000000; /* Color del texto para el tema claro de la barra de navegación */
+}
+body.dark .navbar-dark .navbar-nav .nav-link {
+  color: #ffffff; /* Color del texto para los enlaces de la barra de navegación en el tema oscuro */
+}
+
+body.light .navbar-light .navbar-nav .nav-link {
+  color: #000000; /* Color del texto para los enlaces de la barra de navegación en el tema claro */
+}
+
+
+
+
+.footer.dark {
+  background-color: #343a40; /* Color de fondo para el tema oscuro del footer */
+  color: #ffffff; /* Color del texto para el tema oscuro del footer */
+}
+
+.footer.light {
+  background-color: #ffffff; /* Color de fondo para el tema claro del footer */
+  color: #000000; /* Color del texto para el tema claro del footer */
+}
+
+body.dark .footer .card-footer {
+  color: #ffffff; /* Color del texto para el footer en el tema oscuro */
+}
+
+body.light .footer .card-footer {
+  color: #000000; /* Color del texto para el footer en el tema claro */
+}
+
+/* Estilos para el tema claro */
+body.light .card,
+body.light .card-header,
+body.light .card-body,
+body.light .card-title,
+body.light .card-text,
+body.light .card-footer {
+    background-color: #ffffff; /* Fondo blanco para el tema claro */
+    color: #000000; /* Texto negro para el tema claro */
+}
+
+/* Estilos para el tema oscuro */
+body.dark .card,
+body.dark .card-header,
+body.dark .card-body,
+body.dark .card-title,
+body.dark .card-text,
+body.dark .card-footer {
+    background-color: #212529; /* Fondo oscuro para el tema oscuro */
+    color: #ffffff; /* Texto blanco para el tema oscuro */
+}
+
+/* footer */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.container-wrapper {
+  flex: 1;
+}
+
+.card-footer {
+  background-color: #343a40; /* Color de fondo del footer */
+  color: white; /* Color del texto del footer */
+  padding: 1rem;
+  text-align: center;
+  margin-top: auto; /* Mantiene el footer pegado en la parte inferior del contenedor flex */
+}
